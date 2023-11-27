@@ -1,1 +1,1 @@
-# World-Solver-s-
+# World-Solver(s)
