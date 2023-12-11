@@ -70,7 +70,7 @@ def wordle_solver(correct_word, guesses):
     deletes = []
     trys = 0
 
-    g1 = random.choice(temp_guesses)
+    g1 = "salet"
     trys += 1
     check_for_match(g1, correct_word, trys)
     if type(check_for_match(g1, correct_word, trys)) == str:
@@ -142,14 +142,12 @@ def wordle_solver(correct_word, guesses):
     print("guess 9: ", g9)
     check(g9, temp_guesses, correct_word, deletes)
     
-    
     g10 = random.choice(temp_guesses)
     trys += 1
     check_for_match(g10, correct_word, trys)
     if type(check_for_match(g10, correct_word, trys)) == str: 
         return check_for_match(g10, correct_word, trys)
     check(g10, temp_guesses, correct_word, deletes)
-    
     
     g11 = random.choice(temp_guesses)
     trys += 1
@@ -172,41 +170,6 @@ def wordle_solver(correct_word, guesses):
         return check_for_match(g13, correct_word, trys)
     check(g13, temp_guesses, correct_word, deletes)
     
-    g14 = random.choice(temp_guesses)
-    trys += 1
-    check_for_match(g14, correct_word, trys)
-    if type(check_for_match(g14, correct_word, trys)) == str: 
-        return check_for_match(g14, correct_word, trys)
-    check(g14, temp_guesses, correct_word, deletes)
-    
-    g15 = random.choice(temp_guesses)
-    trys += 1
-    check_for_match(g15, correct_word, trys)
-    if type(check_for_match(g15, correct_word, trys)) == str: 
-        return check_for_match(g15, correct_word, trys)
-    check(g15, temp_guesses, correct_word, deletes)
-    
-    g16 = random.choice(temp_guesses)
-    trys += 1
-    check_for_match(g16, correct_word, trys)
-    if type(check_for_match(g16, correct_word, trys)) == str: 
-        return check_for_match(g16, correct_word, trys)
-    check(g16, temp_guesses, correct_word, deletes)
-    
-    g17 = random.choice(temp_guesses)
-    trys += 1
-    check_for_match(g17, correct_word, trys)
-    if type(check_for_match(g17, correct_word, trys)) == str: 
-        return check_for_match(g17, correct_word, trys)
-    check(g17, temp_guesses, correct_word, deletes)
-    
-    g18 = random.choice(temp_guesses)
-    trys += 1
-    check_for_match(g17, correct_word, trys)
-    if type(check_for_match(g18, correct_word, trys)) == str: 
-        return check_for_match(g18, correct_word, trys)
-    check(g18, temp_guesses, correct_word, deletes)
-    
     return "Failed to guess the correct word."
 
 # How optimal is this method? Let's runs the function a bunch of times to get an idea of the average number
@@ -217,14 +180,19 @@ def extract_last_number(s):
     numbers = re.findall(r'\d+', s)
     return numbers[-1] if numbers else None
 
+worst_game = 0
+best_game = 100
 total_tries = 0 # each time we play add out score to this. We will take average after loop is finished.
 cases = 500 # how many times we wanna play
 for x in range(cases):
     s = wordle_solver(random.choice(wordle_known_solutions), allowed_guesses)
     h = int(extract_last_number(s))
+    if h < best_game:
+        best_game = h
+    if h > worst_game:
+        worst_game = h
     print(s, " /// ", h)
     total_tries += h
   
-print("average tries: ", total_tries/cases) # Seems like average ~ 5 guesses.
-
+print("average tries: ", total_tries/cases, "best game:", best_game, ", worse game:", worst_game) # Seems like average ~ 4.7
 
