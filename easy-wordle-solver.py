@@ -43,16 +43,24 @@ def check_yellows(guess, guesses, correct, deletes):
             for word in guesses:
                 if guess[x] not in word:
                     deletes.append(word)
+                if guess[x] == word[x]:
+                    deletes.append(word)
     for word in deletes:
         if word in guesses:
             guesses.remove(word)
     deletes.clear()
+    
     
 def check_for_match(guess, correct_word, trys):
     if guess == correct_word:
         return f"Guessed the word '{correct_word}' correctly and it took {trys} tries!"
     else:
         return
+    
+def check(guess, temp_guesses, correct_word, deletes):
+    check_greens(guess, temp_guesses, correct_word, deletes)
+    check_yellows(guess, temp_guesses, correct_word, deletes)
+    check_greys(guess, temp_guesses, correct_word, deletes)
        
 def wordle_solver(correct_word, guesses):
     temp_guesses = []
@@ -61,15 +69,13 @@ def wordle_solver(correct_word, guesses):
         
     deletes = []
     trys = 0
-    
+
     g1 = random.choice(temp_guesses)
     trys += 1
     check_for_match(g1, correct_word, trys)
     if type(check_for_match(g1, correct_word, trys)) == str:
         return check_for_match(g1, correct_word, trys)
-    check_yellows(g1, temp_guesses, correct_word, deletes)
-    check_greens(g1, temp_guesses, correct_word, deletes)
-    check_greys(g1, temp_guesses, correct_word, deletes)
+    check(g1, temp_guesses, correct_word, deletes)
     print("guess 1: ", g1)
  
     g2 = random.choice(temp_guesses)
@@ -77,9 +83,7 @@ def wordle_solver(correct_word, guesses):
     check_for_match(g2, correct_word, trys)
     if type(check_for_match(g2, correct_word, trys)) == str: 
         return check_for_match(g2, correct_word, trys)
-    check_greens(g2, temp_guesses, correct_word, deletes)
-    check_yellows(g2, temp_guesses, correct_word, deletes)
-    check_greys(g2, temp_guesses, correct_word, deletes)
+    check(g2, temp_guesses, correct_word, deletes)
     print("guess 2: ", g2)
  
     g3 = random.choice(temp_guesses)
@@ -87,9 +91,7 @@ def wordle_solver(correct_word, guesses):
     check_for_match(g3, correct_word, trys)
     if type(check_for_match(g3, correct_word, trys)) == str:
         return check_for_match(g3, correct_word, trys)
-    check_greens(g3, temp_guesses, correct_word, deletes)
-    check_yellows(g3, temp_guesses, correct_word, deletes)
-    check_greys(g3, temp_guesses, correct_word, deletes)
+    check(g3, temp_guesses, correct_word, deletes)
     print("guess 3: ", g3)
     
     g4 = random.choice(temp_guesses)
@@ -97,9 +99,7 @@ def wordle_solver(correct_word, guesses):
     check_for_match(g4, correct_word, trys)
     if type(check_for_match(g4, correct_word, trys)) == str:
         return check_for_match(g4, correct_word, trys)
-    check_greens(g4, temp_guesses, correct_word, deletes)
-    check_yellows(g4, temp_guesses, correct_word, deletes)
-    check_greys(g4, temp_guesses, correct_word, deletes)
+    check(g4, temp_guesses, correct_word, deletes)
     print("guess 4: ", g4)
     
     g5 = random.choice(temp_guesses)
@@ -107,9 +107,7 @@ def wordle_solver(correct_word, guesses):
     check_for_match(g5, correct_word, trys)
     if type(check_for_match(g5, correct_word, trys)) == str:
         return check_for_match(g5, correct_word, trys)
-    check_greens(g5, temp_guesses, correct_word, deletes)
-    check_yellows(g5, temp_guesses, correct_word, deletes)
-    check_greys(g5, temp_guesses, correct_word, deletes)
+    check(g5, temp_guesses, correct_word, deletes)
     print("guess 5: ", g5)
     
     g6 = random.choice(temp_guesses)
@@ -117,9 +115,7 @@ def wordle_solver(correct_word, guesses):
     check_for_match(g6, correct_word, trys)
     if type(check_for_match(g6, correct_word, trys)) == str:
         return check_for_match(g6, correct_word, trys)
-    check_greens(g6, temp_guesses, correct_word, deletes)
-    check_yellows(g6, temp_guesses, correct_word, deletes)
-    check_greys(g6, temp_guesses, correct_word, deletes)
+    check(g6, temp_guesses, correct_word, deletes)
     print("guess 6: ", g6)
     
     g7 = random.choice(temp_guesses)
@@ -127,9 +123,7 @@ def wordle_solver(correct_word, guesses):
     check_for_match(g7, correct_word, trys)
     if type(check_for_match(g7, correct_word, trys)) == str:
         return check_for_match(g7, correct_word, trys)
-    check_greens(g7, temp_guesses, correct_word, deletes)
-    check_yellows(g7, temp_guesses, correct_word, deletes)
-    check_greys(g7, temp_guesses, correct_word, deletes)
+    check(g7, temp_guesses, correct_word, deletes)
     print("guess 7: ", g7)
     
     g8 = random.choice(temp_guesses)
@@ -137,91 +131,81 @@ def wordle_solver(correct_word, guesses):
     check_for_match(g8, correct_word, trys)
     if type(check_for_match(g8, correct_word, trys)) == str: 
         return check_for_match(g8, correct_word, trys)
-    check_greens(g8, temp_guesses, correct_word, deletes)
-    check_yellows(g8, temp_guesses, correct_word, deletes)
-    check_greys(g8, temp_guesses, correct_word, deletes)
+    print("guess 8: ", g8)
+    check(g8, temp_guesses, correct_word, deletes)
     
     g9 = random.choice(temp_guesses)
     trys += 1
     check_for_match(g9, correct_word, trys)
     if type(check_for_match(g9, correct_word, trys)) == str: 
         return check_for_match(g9, correct_word, trys)
-    check_greens(g9, temp_guesses, correct_word, deletes)
-    check_yellows(g9, temp_guesses, correct_word, deletes)
-    check_greys(g9, temp_guesses, correct_word, deletes)
     print("guess 9: ", g9)
+    check(g9, temp_guesses, correct_word, deletes)
+    
     
     g10 = random.choice(temp_guesses)
     trys += 1
     check_for_match(g10, correct_word, trys)
     if type(check_for_match(g10, correct_word, trys)) == str: 
         return check_for_match(g10, correct_word, trys)
-    check_greens(g10, temp_guesses, correct_word, deletes)
-    check_yellows(g10, temp_guesses, correct_word, deletes)
-    check_greys(g10, temp_guesses, correct_word, deletes)
+    check(g10, temp_guesses, correct_word, deletes)
+    
     
     g11 = random.choice(temp_guesses)
     trys += 1
     check_for_match(g11, correct_word, trys)
     if type(check_for_match(g11, correct_word, trys)) == str: 
         return check_for_match(g11, correct_word, trys)
-    check_greens(g11, temp_guesses, correct_word, deletes)
-    check_yellows(g11, temp_guesses, correct_word, deletes)
-    check_greys(g11, temp_guesses, correct_word, deletes)
+    check(g11, temp_guesses, correct_word, deletes)
     
     g12 = random.choice(temp_guesses)
     trys += 1
     check_for_match(g12, correct_word, trys)
     if type(check_for_match(g12, correct_word, trys)) == str: 
         return check_for_match(g12, correct_word, trys)
-    check_greens(g12, temp_guesses, correct_word, deletes)
-    check_yellows(g12, temp_guesses, correct_word, deletes)
-    check_greys(g12, temp_guesses, correct_word, deletes)
+    check(g12, temp_guesses, correct_word, deletes)
     
     g13 = random.choice(temp_guesses)
     trys += 1
     check_for_match(g13, correct_word, trys)
     if type(check_for_match(g13, correct_word, trys)) == str: 
         return check_for_match(g13, correct_word, trys)
-    check_greens(g13, temp_guesses, correct_word, deletes)
-    check_yellows(g13, temp_guesses, correct_word, deletes)
-    check_greys(g13, temp_guesses, correct_word, deletes)
+    check(g13, temp_guesses, correct_word, deletes)
     
     g14 = random.choice(temp_guesses)
     trys += 1
     check_for_match(g14, correct_word, trys)
     if type(check_for_match(g14, correct_word, trys)) == str: 
         return check_for_match(g14, correct_word, trys)
-    check_greens(g14, temp_guesses, correct_word, deletes)
-    check_yellows(g14, temp_guesses, correct_word, deletes)
-    check_greys(g14, temp_guesses, correct_word, deletes)
+    check(g14, temp_guesses, correct_word, deletes)
     
     g15 = random.choice(temp_guesses)
     trys += 1
     check_for_match(g15, correct_word, trys)
     if type(check_for_match(g15, correct_word, trys)) == str: 
         return check_for_match(g15, correct_word, trys)
-    check_greens(g15, temp_guesses, correct_word, deletes)
-    check_yellows(g15, temp_guesses, correct_word, deletes)
-    check_greys(g15, temp_guesses, correct_word, deletes)
+    check(g15, temp_guesses, correct_word, deletes)
     
     g16 = random.choice(temp_guesses)
     trys += 1
     check_for_match(g16, correct_word, trys)
     if type(check_for_match(g16, correct_word, trys)) == str: 
         return check_for_match(g16, correct_word, trys)
-    check_greens(g16, temp_guesses, correct_word, deletes)
-    check_yellows(g16, temp_guesses, correct_word, deletes)
-    check_greys(g16, temp_guesses, correct_word, deletes)
+    check(g16, temp_guesses, correct_word, deletes)
     
     g17 = random.choice(temp_guesses)
     trys += 1
     check_for_match(g17, correct_word, trys)
     if type(check_for_match(g17, correct_word, trys)) == str: 
         return check_for_match(g17, correct_word, trys)
-    check_greens(g17, temp_guesses, correct_word, deletes)
-    check_yellows(g17, temp_guesses, correct_word, deletes)
-    check_greys(g17, temp_guesses, correct_word, deletes)
+    check(g17, temp_guesses, correct_word, deletes)
+    
+    g18 = random.choice(temp_guesses)
+    trys += 1
+    check_for_match(g17, correct_word, trys)
+    if type(check_for_match(g18, correct_word, trys)) == str: 
+        return check_for_match(g18, correct_word, trys)
+    check(g18, temp_guesses, correct_word, deletes)
     
     return "Failed to guess the correct word."
 
@@ -234,13 +218,13 @@ def extract_last_number(s):
     return numbers[-1] if numbers else None
 
 total_tries = 0 # each time we play add out score to this. We will take average after loop is finished.
-cases = 50 # how many times we wanna play
+cases = 500 # how many times we wanna play
 for x in range(cases):
-    h = wordle_solver(random.choice(wordle_known_solutions), allowed_guesses)
-    h = int(extract_last_number(h))
-    print(h)
+    s = wordle_solver(random.choice(wordle_known_solutions), allowed_guesses)
+    h = int(extract_last_number(s))
+    print(s, " /// ", h)
     total_tries += h
   
-print("average tries: ", total_tries/cases) # Seems like average ~ 6 guesses.
-    
+print("average tries: ", total_tries/cases) # Seems like average ~ 5 guesses.
+
 
