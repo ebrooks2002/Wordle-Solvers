@@ -1,5 +1,6 @@
 import math
 import random
+import re
 # minimax approach to solving wordle more optimally.
 
 #region Region 1
@@ -55,8 +56,21 @@ def check_for_match(guess, correct_word, trys):
         return
     
 def calculate_score(guess, frequency_map):
-    return sum(frequency_map.get(letter, 0) for letter in guess)
-
+    score = 0
+    for letter in guess:
+        score += frequency_map.get(letter, 0)
+        
+    for letter in guess: # If word contains the same letter twice dedcut a third of its points from its score:
+        if guess.count(letter) >= 2:
+            score = score * 1/3
+            break
+        
+    for letter in guess: # if word contains same letter twice, deduct half its points from its score
+        if guess.count(letter) >= 3:
+            score = score * 1/2
+            break
+    return score
+    
 def make_guess(allowed_guesses):
     letter_frequency = {
     'e': 11.1607, 'a': 8.4966, 'r': 7.5809,
@@ -104,3 +118,23 @@ answer = random.choice(wordle_known_solutions)
 print(answer)
 print(wordle_solver(answer, allowed_guesses))
 
+def extract_last_number(s):
+    numbers = re.findall(r'\d+', s)
+    return numbers[-1] if numbers else None
+
+worst_game = 0
+best_game = 100
+total_tries = 0 # each time we play add out score to this. We will take average after loop is finished.
+cases = 100 # how many times we wanna play
+for i in range(cases):
+    s = wordle_solver(random.choice(wordle_known_solutions), allowed_guesses)
+    h = int(extract_last_number(s))
+    if h < best_game:
+        best_game = h
+    if h > worst_game:
+        worst_game = h
+    print(s, " /// ", h)
+    total_tries += h
+  
+print(f"average tries for {cases} games played:",total_tries/cases,"/ best game:", best_game,"/ worst game:", worst_game) 
+# Seems like average is  ~ 4.5, so slightly better to use frequency to make an educated guess instead of randomly guessing.
